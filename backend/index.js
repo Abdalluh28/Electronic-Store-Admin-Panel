@@ -20,7 +20,6 @@ app.use(express.json());
 
 
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
-app.use('/', express.static('./public'));
 
 // Routes
 app.use('/', require('./routes/root'));
@@ -31,8 +30,10 @@ app.use('/category', require('./routes/categoryRoutes'));
 app.use('/products', require('./routes/productRoutes'));
 app.use('/upload', require('./routes/uploadRoutes')); // Image upload
 app.use('/orders', require('./routes/orderRoutes'));
+app.use('/cart', require('./routes/cartRoutes'));
+app.use('/favourite', require('./routes/favouriteRoutes'));
 app.use('/payment', require('./routes/paymentRoutes'));
-app.use('/chart', require('./routes/chartRoutes'));
+
 
 // Start server after MongoDB connection is established
 mongoose.connection.once('open', () => {
