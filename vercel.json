@@ -1,20 +1,16 @@
 {
-  "version": 2,
-  "functions": {
-    "backend/index.js": {
-      "runtime": "nodejs14.x" 
-    }
-  },
-  "builds": [
-    {
-      "src": "backend/index.js", 
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/backend/index.js"
-    }
-  ]
-}
+    "version": 2,
+    "builds": [
+      {
+        "src": "backend/index.js", 
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "/backend/index.js"
+      }
+    ]
+  }
+  
