@@ -63,7 +63,7 @@ export default function ProductsList() {
     const handleDelete = async (event, id, name) => {
         setDeleteingElement(id);
         event.preventDefault();
-        if (isDeleting && deleteingElement === product._id) {
+        if (isDeleting && deleteingElement === id) {
             return <Spinner animation="border" />;
         }
         Swal.fire({
