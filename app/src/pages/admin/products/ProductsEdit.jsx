@@ -30,10 +30,12 @@ export default function ProductsEdit() {
     useEffect(() => {
         const fetchImages = async () => {
             if (product && product.product.images) {
-                const imagePromises = product.product.images.map(image =>
-                    fetch(`http://localhost:3000${image}`).then(res => res.blob()).then(blob => URL.createObjectURL(blob))
+                const imageUrls = product.product.images.map(image =>
+                {
+                    console.log(`${process.env.REACT_APP_API_URL}${image}`);
+                    return `${process.env.REACT_APP_API_URL}${image}`
+                }
                 );
-                const imageUrls = await Promise.all(imagePromises);
                 setImages(imageUrls);
             }
         };

@@ -60,6 +60,7 @@ export default function ProductImages(props) {
             const { data, error: err, isLoading: loading } = await uploadImage(formData);
 
             if (data) {
+                console.log(data)
                 const image = `${process.env.REACT_APP_API_URL}${data.image}`
                 if (image) {
                     setImages(prevImages => {
