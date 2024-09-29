@@ -21,10 +21,10 @@ const BarChart = () => {
         <>
             <ProductsChart />
             <div className=" mt-5 rounded-full flex items-center text-white text-xl lg:flex-row flex-col">
-                <div className='lg:w-[50%] sm:w-[600px] w-[400px] h-[500px]'>
+                <div className='lg:w-[50%] sm:w-[600px] w-fit h-[500px]'>
                     <CategoriesChart />
                 </div>
-                <div className='lg:w-[50%] sm:w-[600px] w-[400px] h-[500px]'>
+                <div className='lg:w-[50%] sm:w-[600px] w-fit h-[500px]'>
                     <UsersChart />
                 </div>
             </div>

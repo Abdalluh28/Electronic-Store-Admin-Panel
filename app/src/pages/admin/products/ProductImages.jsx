@@ -60,7 +60,7 @@ export default function ProductImages(props) {
             const { data, error: err, isLoading: loading } = await uploadImage(formData);
 
             if (data) {
-                const image = await fetch(`http://localhost:3000${data.image}`).then(res => res.blob()).then(blob => URL.createObjectURL(blob))
+                const image = await fetch(`${process.env.REACT_APP_API_URL}${data.image}`).then(res => res.blob()).then(blob => URL.createObjectURL(blob))
                 if (image) {
                     setImages(prevImages => {
                         const updatedImages = [...prevImages];

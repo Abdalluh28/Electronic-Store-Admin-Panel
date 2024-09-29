@@ -115,7 +115,7 @@ const ProductsChart = () => {
                 </div>
             </div>
             <div
-                className='lg:w-[50%] sm:w-[600px] w-[400px] h-[500px]' > {/* Adjust width and height */}
+                className='lg:w-[50%] sm:w-[600px] w-fit h-[500px]' > {/* Adjust width and height */}
                 <Bar data={data} options={options} />
             </div>
         </div>
