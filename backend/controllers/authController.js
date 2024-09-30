@@ -58,7 +58,7 @@ const sendVerificationEmailRegister = async (newUser, accessToken) => {
         from: 'abdok7496@gmail.com',
         to: newUser.email,
         subject: 'Verify your email',
-        text: `Please verify your email by clicking the following link: ${process.env.FRONTEND_URL}/auth/verify/${newUser._id}/${accessToken}`
+        text: `Please verify your email by clicking the following link: ${process.env.FRONT_URL}/auth/verify/${newUser._id}/${accessToken}`
     };
 
     return new Promise((resolve, reject) => {
@@ -105,7 +105,7 @@ const sendVerificationEmailLogin = asyncHandler(async (req, res) => {
         from: 'abdok7496@gmail.com',
         to: existingUser.email,
         subject: 'Verify your email',
-        text: `Please verify your email by clicking the following link: ${process.env.FRONTEND_URL}/auth/verify/${existingUser._id}/${accessToken}`
+        text: `Please verify your email by clicking the following link: ${process.env.FRONT_URL}/auth/verify/${existingUser._id}/${accessToken}`
     };
 
     try {
