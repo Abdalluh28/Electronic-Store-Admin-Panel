@@ -33,7 +33,6 @@ export default function AddProduct() {
         quantity: "",
         brand: "",
         description: "",
-        countInStock: "",
         category: ""
     })
 
@@ -99,7 +98,6 @@ export default function AddProduct() {
         formData.append('quantity', inputInfo.quantity);
         formData.append('brand', inputInfo.brand);
         formData.append('description', inputInfo.description);
-        formData.append('countInStock', inputInfo.countInStock);
         formData.append('category', inputInfo.category);
         console.log(formData)
         const { data, error } = await createProduct({ formData, accessToken })
@@ -128,6 +126,7 @@ export default function AddProduct() {
                 formData2.append('index', i);
                 const { data: image } = await uploadImage(formData2)
                 if (image) {
+                    console.log(image)
                     counter++
                 }
                 console.log(data)
@@ -228,13 +227,6 @@ export default function AddProduct() {
                         <label htmlFor="description" className="form-label sm:w-3/4 w-full self-center lg:self-start">Description</label>
                         <textarea className='bg-black border border-gray-300 text-white text-sm rounded-lg sm:w-3/4 w-full' id='description' rows={5}
                             onChange={(e) => setInputInfo(Prev => ({ ...Prev, description: e.target.value }))} />
-                    </div>
-                    {/* countInStock */}
-                    <div className='flex flex-col mb-3 sm:w-1/2 w-full items-center lg:items-start'>
-                        <label htmlFor="countInStock" className="form-label sm:w-3/4 w-full self-center lg:self-start">Count In Stock</label>
-                        <input type="number" className='bg-black border border-gray-300 text-white text-sm rounded-lg h-12 sm:w-3/4 w-full'
-                            id='countInStock'
-                            onChange={(e) => setInputInfo(Prev => ({ ...Prev, countInStock: e.target.value }))} />
                     </div>
                     {/* category */}
                     <div className='flex flex-col mb-3 sm:w-1/2 w-full sm:mt-0 mt-3 items-center lg:items-start justify-end'>
