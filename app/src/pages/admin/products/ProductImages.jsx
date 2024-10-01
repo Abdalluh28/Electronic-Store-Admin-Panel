@@ -3,6 +3,7 @@ import { useDeleteImageMutation, useUploadImageMutation } from '../../../redux/f
 import { toast } from 'react-toastify';
 import { gsap } from 'gsap';
 import Swal from 'sweetalert2';
+import { Spinner } from 'react-bootstrap';
 
 export default function ProductImages(props) {
 
@@ -10,7 +11,7 @@ export default function ProductImages(props) {
     const [imagesTwo, setImagesTwo] = useState([]);
 
     const [uploadImage] = useUploadImageMutation();
-    const [deleteImage, { isLoading }] = useDeleteImageMutation();
+    const [isLoadingUpdate, setIsLoadingUpdate] = useState(false)
 
 
     useEffect(() => {
@@ -59,7 +60,14 @@ export default function ProductImages(props) {
         try {
             const { data, error: err, isLoading: loading } = await uploadImage(formData);
 
+            if (loading) {
+                setIsLoadingUpdate(true)
+            }
+
+
             if (data) {
+
+                setIsLoadingUpdate(false)
                 console.log(data)
                 let image;
                 if (data.image.includes('cloudinary')) {
@@ -120,80 +128,7 @@ export default function ProductImages(props) {
     }
 
 
-    const handelDeleteImage = async (image) => {
-
-
-        const index = imagesTwo.indexOf(image);
-
-
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You will delete this image!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                confirmDelete(index)
-            }
-        })
-    }
-
-
-    const confirmDelete = async (index) => {
-        try {
-
-            const { data, error: err, isLoading: loading } = await deleteImage({ id: props.id, index });
-
-            if (data) {
-
-                setImages(prevImages => {
-                    const updatedImages = [...prevImages];
-                    updatedImages[0] = data; // Update the image at the correct index
-                    return updatedImages;
-                });
-
-                props.handleDeleteImageParent(images)
-
-                toast.success('Image deleted successfully', {
-                    position: "top-right",
-                    autoClose: 1500,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                });
-
-            } else {
-                toast.error('Something went wrong', {
-                    position: "top-right",
-                    autoClose: 1500,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                });
-            }
-
-        } catch (error) {
-            toast.error('Something went wrong', {
-                position: "top-right",
-                autoClose: 1500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
-        }
-    }
+    
 
 
     return (
@@ -207,11 +142,9 @@ export default function ProductImages(props) {
                                 <input type='file' className='hidden' id='file' onChange={handleUploadImage} />
                             </form>
                             <label htmlFor='file' className='bg-blue-500 hover:bg-blue-700 text-white py-1 px-4 sm:px-0 text-center cursor-pointer w-full rounded ms-2'>
-                                Upload
+                                {isLoadingUpdate ? <Spinner animation="border" /> : 'Edit'}
                             </label>
                         </div>
-                        <button className='bg-red-500 hover:bg-red-700 text-white py-1 sm:w-1/3 px-4 sm:px-0 rounded ms-2'
-                            onClick={() => handelDeleteImage(images[0])}>Delete</button>
                     </div>
                 </div>
                 <div>
