@@ -79,7 +79,7 @@ export default function OrdersList() {
                         <div key={order._id} className='grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 mb-3 border-b border-gray-700 border-opacity-60 pb-3'>
                             <div className='text-lg col-span-1 flex items-center'>
                                 <img onClick={() => goToOrder(order._id)}
-                                    src={process.env.REACT_APP_API_URL + order?.orderItems[0]?.image}
+                                    src={ order?.orderItems[0]?.image.includes('cloudinary') ? order?.orderItems[0]?.image : process.env.REACT_APP_API_URL + order?.orderItems[0]?.image}
                                     alt={order?.orderItems[0]?.name}
                                     className='w-16 h-16 object-cover rounded-lg lg:cursor-pointer' />
                             </div>

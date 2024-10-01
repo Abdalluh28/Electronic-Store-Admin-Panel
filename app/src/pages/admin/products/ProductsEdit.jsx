@@ -33,6 +33,9 @@ export default function ProductsEdit() {
                 const imageUrls = product.product.images.map(image =>
                 {
                     console.log(`${process.env.REACT_APP_API_URL}${image}`);
+                    if (image.includes('cloudinary')) {
+                        return image
+                    }
                     return `${process.env.REACT_APP_API_URL}${image}`
                 }
                 );

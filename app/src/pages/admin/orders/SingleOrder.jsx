@@ -109,7 +109,7 @@ export default function SingleOrder() {
                         <>
                             <div className='grid grid-cols-3 md:grid-cols-4 gap-2 mb-3 border-b border-gray-700 border-opacity-60 pb-3'>
                                 <div className='col-span-1 items-center md:flex hidden'>
-                                    <img src={process.env.REACT_APP_API_URL + item?.image}
+                                    <img src={item?.image.includes('cloudinary') ? item?.image : process.env.REACT_APP_API_URL + item?.image}
                                         alt={item?.name}
                                         className='w-24 h-24 object-cover rounded-lg lg:cursor-pointer' />
                                 </div>
