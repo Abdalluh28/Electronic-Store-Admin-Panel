@@ -71,10 +71,8 @@ const getCategories = asyncHandler(async (req, res) => {
 
 
 const getUsers = asyncHandler(async (req, res) => {
-    // get the top 5 most active users based on number of orders
-
     try {
-        
+        // Step 1: Get the top 5 most active users based on number of orders
         const users = await Order.aggregate([
             {
                 $group: {
@@ -88,24 +86,25 @@ const getUsers = asyncHandler(async (req, res) => {
             {
                 $limit: 5
             }
-        ])
-    
-        console.log(users)
+        ]);
 
-        let names = []
-        // get the names of the users
-        for(let i = 0; i < users.length; i++) {
-            const user = await User.findById(users[i]._id)
-            names.push(user.firstName + ' ' + user.lastName)
-        }
-        return res.status(200).json({users, names})
+        // Step 2: Fetch user names in parallel using Promise.all
+        const names = await Promise.all(
+            users.map(async (user) => {
+                const userInfo = await User.findById(user._id);
+                return userInfo ? `${userInfo.firstName} ${userInfo.lastName}` : 'Unknown User';
+            })
+        );
 
+        // Step 3: Return response with users and their names
+        return res.status(200).json({ users, names });
 
     } catch (error) {
-        return res.status(500).json(error)
+        console.error(error);
+        return res.status(500).json({ error: error.message });
     }
+});
 
-})
 
 
 
